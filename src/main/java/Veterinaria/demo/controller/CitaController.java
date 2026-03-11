@@ -8,25 +8,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("/api/mascotas") // <--- Esto debe coincidir con la URL de Postman
 public class CitaController {
 
-    private final CitaRepository citaRepository;
-
     @Autowired
-    public CitaController(CitaRepository citaRepository) {
-        this.citaRepository = citaRepository;
-    }
+    private CitaRepository citaRepository;
 
     @GetMapping
-    public List<CitaMedica> listarTodas() {
+    public List<CitaMedica> listar() {
         return citaRepository.findAll();
     }
 
     @PostMapping
     public CitaMedica crear(@RequestBody CitaMedica cita) {
-        // el ID será generado automáticamente por la base de datos
-        cita.setId(null);
         return citaRepository.save(cita);
     }
 }
